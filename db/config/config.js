@@ -11,7 +11,7 @@ const config = {
     },
     "schema": "public"
   },
-  "prod": {
+  "production": {
     "username": process.env.DB_USER || "00",
     "password": process.env.DB_PASSWORD || "00",
     "database": process.env.DB_NAME || "c_db",
