@@ -20,20 +20,8 @@ const config = {
     "dialect": "postgres",
     "schema": "public",
     "pool": {
-      "maxConnections": 2,
+      "maxConnections": 10,
       "maxIdleTime": 90000
-    },
-    replication: {
-      read: [{
-        host: process.env.DB_READ_HOST,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD
-      }],
-      write: {
-        host: process.env.DB_WRITE_HOST,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD
-      }
     }
   }
 }
