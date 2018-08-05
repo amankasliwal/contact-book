@@ -8,18 +8,25 @@ var env = process.env.NODE_ENV || "development";
 var config = require("../config/config.js")[env];
 var db = {};
 
+config.define = {
+  defaultScope: {
+    attributes: {
+      exclude: ['createdAt', 'updatedAt']
+    }
+  }
+};
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 fs
   .readdirSync(__dirname)
-  .filter(function(file) {
+  .filter(function (file) {
     return (file.indexOf(".") !== 0) && (file !== basename) && (file.slice(-3) === ".js");
   })
-  .forEach(function(file) {
+  .forEach(function (file) {
     var model = sequelize["import"](path.join(__dirname, file));
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(function(modelName) {
+Object.keys(db).forEach(function (modelName) {
   console.log(modelName)
   if (db[modelName].associate) {
     db[modelName].associate(db);

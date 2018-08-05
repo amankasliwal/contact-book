@@ -12,7 +12,6 @@ module.exports = function(req, res, next) {
 
 const headerAuth = (req) => {
 	var user = basicAuth(req);
-	console.log("user", user);
   if (!user || !user.name || user.name !== config.authKey) {
     return false;
   };

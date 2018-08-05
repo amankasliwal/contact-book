@@ -2,7 +2,7 @@ const utils = require("../utils.js");
 const env = process.env.NODE_ENV || "development";
 const config = require("../../db/config/config.js")[env];
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Contact = sequelize.define("Contact", {
     id: {
       type: DataTypes.STRING,
@@ -32,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    schema: config.schema
-  });
+      schema: config.schema
+    });
   return Contact;
 }
