@@ -31,6 +31,9 @@ router.post("/", validateRequest, (req, res) => {
 			resp.status = created ? "CREATED" : "UPDATED";
 			res.status(200).send(resp);
 		});
+	}).catch(err => {
+		console.log(err);
+		res.status(500).send({ error: true, message : "Internal Server Error"});
 	});
 });
 
@@ -40,6 +43,9 @@ router.get("/:contactId", (req, res) => {
 		where: { id: contactId }
 	}).then(contact => {
 		res.status(200).send(contact.dataValues);
+	}).catch(err => {
+		console.log(err);
+		res.status(500).send({ error: true, message : "Internal Server Error"});
 	});
 });
 
@@ -49,6 +55,9 @@ router.delete("/:contactId", (req, res) => {
 		where: { id: contactId }
 	}).then(contact => {
 		res.status(200).send({ status: "SUCCESS" });
+	}).catch(err => {
+		console.log(err);
+		res.status(500).send({ error: true, message : "Internal Server Error"});
 	});
 });
 
@@ -63,6 +72,9 @@ router.put("/:contactId", validateRequest, (req, res) => {
 		limit: 1
 	}).then(contact => {
 		res.status(200).send({ status: "SUCCESS" });
+	}).catch(err => {
+		console.log(err);
+		res.status(500).send({ error: true, message : "Internal Server Error"});
 	});
 });
 
