@@ -18,7 +18,7 @@ startServer = () => {
 initMiddlewares = () => {
   app.use(bodyParser.urlencoded({ extended: true }));// configure app to use bodyParser()
   app.use(bodyParser.json());
-  app.use('/', authMiddleware);
+  app.use('/contacts', authMiddleware);
 
 }
 
