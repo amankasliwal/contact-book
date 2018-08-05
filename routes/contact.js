@@ -96,7 +96,7 @@ router.delete("/:contactId", (req, res) => {
 	Contact.destroy({
 		where: { id: contactId }
 	}).then(contact => {
-		res.status(200).send({ status: "SUCCESS" });
+		res.status(200).send({ status: "Deleted Successfully." });
 	}).catch(err => {
 		console.log(err);
 		res.status(500).send({ error: true, message: "Internal Server Error" });
