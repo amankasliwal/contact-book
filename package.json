@@ -1,0 +1,32 @@
+{
+  "name": "contact-book",
+  "version": "1.0.0",
+  "description": "Contact Book REST APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amankasliwal/contact-book.git"
+  },
+  "keywords": [
+    "REST",
+    "APIs",
+    "NodeJS"
+  ],
+  "author": "Aman Kasliwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amankasliwal/contact-book/issues"
+  },
+  "homepage": "https://github.com/amankasliwal/contact-book#readme",
+  "dependencies": {
+    "basic-auth": "^2.0.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "pg": "^7.4.3",
+    "ramda": "^0.25.0",
+    "sequelize": "^4.38.0"
+  }
+}
