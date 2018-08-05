@@ -17,15 +17,24 @@ validateRequest = (req, res, next) => {
 } 
 
 router.post("/", validateRequest, (req, res) => {
-	console.log(req);
 	var contact = req.body;
-	Contact.create(contact).then(contactDb => {
-		res.status(200).send(contactDb);
-	})
+	models.sequelize.transaction(function (t) {
+		return Contact.findOrCreate({
+			where: {
+				email: contact.email
+			},
+			defaults: contact,
+			transaction: t
+		})
+		.spread(function (userResult, created) {
+			var resp = userResult.dataValues;
+			resp.status = created ? "CREATED" : "UPDATED";
+			res.status(200).send(resp);
+		});
+	});
 });
 
 router.get("/:contactId", (req, res) => {
-	console.log(req);
 	var contactId = req.params.contactId;
 	Contact.findOne({
 		where: { id: contactId }
