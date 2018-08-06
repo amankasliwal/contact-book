@@ -68,11 +68,16 @@ router.post("/", validateRequest, (req, res) => {
 			defaults: contact,
 			transaction: t
 		})
-			.spread(function (userResult, created) {
+		.spread(function (userResult, created) {
+			if(created) {
 				var resp = userResult.dataValues;
 				resp.status = created ? "CREATED" : "UPDATED";
 				res.status(200).send(resp);
-			});
+			} else{
+				res.status(200).send({ error: true, message: "Contact with Email Id already exists" });
+			}
+
+		});
 	}).catch(err => {
 		console.log(err);
 		res.status(500).send({ error: true, message: "Internal Server Error" });
@@ -103,20 +108,38 @@ router.delete("/:contactId", (req, res) => {
 	});
 });
 
+cleanupContact = (contact) => {
+	return {
+		email: contact.email,
+		phone: contact.phone,
+		firstname: contact.firstname,
+		lastname: contact.lastname,
+		address: contact.address
+	}
+}
 router.put("/:contactId", validateRequest, (req, res) => {
 	var contactId = req.params.contactId;
-	updatedContact = req.body;
+	updatedContact = cleanupContact(req.body);
 	Contact.update(updatedContact, {
 		where: {
 			id: contactId
 		},
 		returning: true,
 		limit: 1
-	}).then(contact => {
-		res.status(200).send({ status: "SUCCESS" });
+	}).then(updated => {
+		console.log("UPDATED", updated[1]);
+		if(updated[0] == 1) {
+			res.status(200).send(updated[1][0].dataValues);
+		} else {
+			res.status(200).send({ error: true, message: "Contact not found" });
+		}
 	}).catch(err => {
-		console.log(err);
-		res.status(500).send({ error: true, message: "Internal Server Error" });
+		console.log(err)
+		if(err.name == "SequelizeUniqueConstraintError"){
+			res.status(200).send({ error: true, message: "Contact with Email Id already exists" });
+		} else {
+			res.status(500).send({ error: true, message: "Internal Server Error" });
+		}
 	});
 });
 
