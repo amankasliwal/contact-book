@@ -44,7 +44,7 @@ describe('Contact', function () {
 			})
 			.expect(200)
 			.end(function (err, res) {
-				expect(res.body).to.deep.include({message: "Contact with Email Id already exists"});
+				expect(res.body).to.deep.include({ message: "Contact with Email Id already exists" });
 				done();
 			});
 	});
@@ -88,8 +88,8 @@ describe('Contact', function () {
 			.set("authorization", 'Basic ZWY3M2I5NmMtZmQwNi00NjRmLTkwZDEtZGQyMTFmMzY4YjRiOg==')
 			.send({ email: "updatedTest@gmail.com" })
 			.expect(200)
-			.end(function(err ,res) {
-				expect(res.body).to.deep.include({email: "updatedTest@gmail.com"});
+			.end(function (err, res) {
+				expect(res.body).to.deep.include({ email: "updatedTest@gmail.com" });
 				done();
 			});
 	});
@@ -100,7 +100,7 @@ describe('Contact', function () {
 			.set("authorization", 'Basic ZWY3M2I5NmMtZmQwNi00NjRmLTkwZDEtZGQyMTFmMzY4YjRiOg==')
 			.send()
 			.expect(200)
-			.end(function(err ,res) {
+			.end(function (err, res) {
 				expect(res.body.results).to.be.an('array');
 				expect(res.body.page).to.equal(2);
 				done();
@@ -108,18 +108,11 @@ describe('Contact', function () {
 	});
 
 	it('Delete a contact', function (done) {
-		api.delete('/contacts/'+ testContactId)
+		api.delete('/contacts/' + testContactId)
 			.set('Accept', 'application/json')
 			.set("authorization", 'Basic ZWY3M2I5NmMtZmQwNi00NjRmLTkwZDEtZGQyMTFmMzY4YjRiOg==')
 			.send()
 			.expect(200, done);
 	});
-
-
-
-
-
-
-
 
 }); //end
