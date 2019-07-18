@@ -127,7 +127,6 @@ router.put("/:contactId", validateRequest, (req, res) => {
 		returning: true,
 		limit: 1
 	}).then(updated => {
-		console.log("UPDATED", updated[1]);
 		if(updated[0] == 1) {
 			res.status(200).send(updated[1][0].dataValues);
 		} else {
